@@ -11,11 +11,3 @@
           lowercase-letters
           symbols))
 
-;; TODO: split out to Mark I ns
-(defn translate-single [source shift]
-  (nth (drop-while #(not (= source %)) 
-                   (concat keyboard keyboard))
-       shift))
-
-(defn translate [source-chars shift]
-  (apply str (map #(translate-single % shift) source-chars)))
