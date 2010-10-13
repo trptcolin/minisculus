@@ -5,9 +5,14 @@
 
 (defn encode-single [source wheel-1 wheel-2 previous-source]
   (-> source
-      (mark-ii/encode-single wheel-1 wheel-2)
-      (mark-i/encode-single
+      (mark-ii/encode wheel-1 wheel-2)
+      (mark-i/encode
         (* 2 (index-in keyboard previous-source)))))
+
+(defn decode-single [password wheel-1 wheel-2 previous-source]
+  (-> password
+      (mark-i/decode (* 2 (index-in keyboard previous-source)))
+      (mark-ii/decode wheel-1 wheel-2)))
 
 (defn encode [source wheel-1 wheel-2]
   (let [source (map str source)
@@ -15,10 +20,6 @@
     (apply str (map (fn [[src prev]]
                         (encode-single src wheel-1 wheel-2 prev))
                     source-with-prev))))
-
-(defn decode-single [password wheel-1 wheel-2 previous-source]
-  (let [inv-1 (mark-i/decode-single password (* 2 (index-in keyboard previous-source)))]
-    (mark-ii/decode-single inv-1 wheel-1 wheel-2)))
 
 (defn decode [password wheel-1 wheel-2]
   (let [pw (map str password)]

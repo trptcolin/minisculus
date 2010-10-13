@@ -1,7 +1,7 @@
 (ns minisculus.mark-i
   (:use [minisculus.core :only (keyboard)]))
 
-(defn encode-single [source shift]
+(defn- encode-single [source shift]
   (nth (drop-while (complement #{(str source)})
                    (cycle keyboard))
        shift))
@@ -15,7 +15,7 @@
     (first (drop (dec shift)
                  (cycle (rearranged-keyboard (str source)))))))
 
-(defn decode-single [password shift]
+(defn- decode-single [password shift]
   (negative-shift password shift))
 
 (defn decode [password shift]
