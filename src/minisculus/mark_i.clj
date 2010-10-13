@@ -6,6 +6,6 @@
                    (concat keyboard keyboard))
        shift))
 
-(defn translate [source-chars shift]
-  (apply str (map #(translate-single % shift) source-chars)))
+(defn translate [source shift]
+  (apply str (map #(translate-single (str %) shift) source)))
 

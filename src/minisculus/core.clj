@@ -5,9 +5,9 @@
 (def lowercase-letters (map char (range 97 123)))
 (def symbols [\. \, \? \! \' (char 34) \space])
 
-(def keyboard 
-  (concat numbers 
-          uppercase-letters
-          lowercase-letters
-          symbols))
+(def keyboard
+  (map str (concat numbers
+                   uppercase-letters
+                   lowercase-letters
+                   symbols)))
 
