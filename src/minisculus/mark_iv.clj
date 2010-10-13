@@ -15,3 +15,22 @@
     (apply str (map (fn [[src prev]]
                         (encode-single src wheel-1 wheel-2 prev))
                     source-with-prev))))
+
+(defn decode-single [password wheel-1 wheel-2 previous-source]
+  (let [inv-1 (mark-i/decode-single password (* 2 (index-in keyboard previous-source)))]
+    (mark-ii/decode-single inv-1 wheel-1 wheel-2)))
+
+(defn decode [password wheel-1 wheel-2]
+  (let [pw (map str password)]
+    (apply str (:solution
+      (first (drop (count pw)
+        (iterate (fn [{:keys [solution password previous]}]
+                     (let [this-solution (decode-single (first password)
+                                                       wheel-1
+                                                       wheel-2
+                                                       previous)]
+                      {:solution (conj solution this-solution)
+                       :password (rest password)
+                       :previous this-solution}))
+                 {:solution [] :password pw :previous "0"})))))))
+

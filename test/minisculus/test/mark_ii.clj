@@ -14,3 +14,16 @@
   (it (= "STU" (encode "abc" 2 5)))
   (it (= "Wkh2Ghvhuw2Ir.2zloo2pryh2632wdqnv2wr2Fdodlv2dw2gdzq"
          (encode "The Desert Fox will move 30 tanks to Calais at dawn" 9 3))))
+
+(describe "decode a single character"
+  (it (= "a" (decode-single "S" 2 5)))
+  (it (= "b" (decode-single "T" 2 5)))
+  (it (= "c" (decode-single "U" 2 5)))
+  (it (= "7" (decode-single " " 2 5))))
+
+(describe "decode words / sentences"
+  (it (= "abc" (decode "STU" 2 5)))
+  (it (= "The Desert Fox will move 30 tanks to Calais at dawn"
+         (decode "Wkh2Ghvhuw2Ir.2zloo2pryh2632wdqnv2wr2Fdodlv2dw2gdzq" 9 3))))
+
+

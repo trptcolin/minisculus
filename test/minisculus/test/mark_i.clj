@@ -10,3 +10,12 @@
 (describe "encode a full word"
   (it (= "hello" (encode "HELLO" 26)))
 	(it (= "Yzxutm5TK5cotjy2" (encode "Strong NE Winds!" 6))))
+
+(describe "decode a single character"
+  (it (= "a" (decode-single "f" 5)))
+  (it (= "c" (decode-single "h" 5)))
+  (it (= " " (decode-single "4" 5))))
+
+(describe "decode a full word"
+  (it (= "HELLO" (decode "hello" 26)))
+  (it (= "Strong NE Winds!" (decode "Yzxutm5TK5cotjy2" 6))))
