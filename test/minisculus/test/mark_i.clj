@@ -2,7 +2,7 @@
   (:use [minisculus.mark-i]
         [lazytest.describe :only (describe it)]))
 
-(describe "translating a single character"
+(describe "encoding a single character"
 	(it (= "f" (encode-single "a" 5)))
 	(it (= "h" (encode-single "c" 5)))
 	(it (= "4" (encode-single " " 5))))
