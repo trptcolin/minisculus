@@ -10,3 +10,8 @@
 				   "n" "o" "p" "q" "r" "s"  "t" "u" "v" "w" "x" "y" "z"
 				   "." "," "?" "!" "'" "\"" " " ]
 				 keyboard)))
+
+
+(describe "index of an item in a collection"
+	(it (= 0 (index-in [:a :b :c] :a)))
+	(it (= 2 (index-in [:a :b :c] :c))))

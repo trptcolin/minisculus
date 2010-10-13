@@ -11,3 +11,5 @@
                    lowercase-letters
                    symbols)))
 
+(defn index-in [coll item]
+  (count (take-while (complement #{item}) coll)))
