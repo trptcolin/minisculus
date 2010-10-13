@@ -34,3 +34,11 @@
                        :previous this-solution}))
                  {:solution [] :password pw :previous "0"})))))))
 
+(defn find-decodings-with-word [crypotext plain-word]
+  (for [w1 (range 10)
+               w2 (range 10)
+               :when (re-matches
+                       (re-pattern (str ".*" plain-word ".*"))
+                       (decode crypotext w1 w2))]
+    [w1 w2 (decode crypotext w1 w2)]))
+
