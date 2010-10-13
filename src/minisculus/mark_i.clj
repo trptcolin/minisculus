@@ -18,9 +18,12 @@
 (defn- decode-single [password shift]
   (negative-shift password shift))
 
-(defn decode [password shift]
-  (apply str (map #(decode-single % shift) password)))
+(defn compose-translation [pred source & args]
+  (apply str (map (fn [letter] (apply pred letter args)) source)))
+
+(defn decode [source shift]
+  (compose-translation decode-single source shift))
 
 (defn encode [source shift]
-  (apply str (map #(encode-single % shift) source)))
+  (compose-translation encode-single source shift))
 

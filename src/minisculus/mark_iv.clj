@@ -3,23 +3,26 @@
   (:require [minisculus.mark-i :as mark-i]
             [minisculus.mark-ii :as mark-ii] ))
 
+(defn- shift [letter]
+  (* 2 (index-in keyboard letter)))
+
 (defn encode-single [source wheel-1 wheel-2 previous-source]
   (-> source
       (mark-ii/encode wheel-1 wheel-2)
-      (mark-i/encode
-        (* 2 (index-in keyboard previous-source)))))
+      (mark-i/encode (shift previous-source))))
 
 (defn decode-single [password wheel-1 wheel-2 previous-source]
   (-> password
-      (mark-i/decode (* 2 (index-in keyboard previous-source)))
+      (mark-i/decode (shift previous-source))
       (mark-ii/decode wheel-1 wheel-2)))
 
 (defn encode [source wheel-1 wheel-2]
-  (let [source (map str source)
-        source-with-prev (map vector source (cons "0" source))]
-    (apply str (map (fn [[src prev]]
+  (let [source   (map str source)
+        previous (cons "0" source)]
+    (apply str (map (fn [src prev]
                         (encode-single src wheel-1 wheel-2 prev))
-                    source-with-prev))))
+                    source
+                    previous))))
 
 (defn decode [password wheel-1 wheel-2]
   (let [pw (map str password)]
@@ -39,7 +42,7 @@
   (for [w1 (range 10)
                w2 (range 10)
                :when (re-matches
-                       (re-pattern (str ".*" plain-word ".*"))
+                       (re-pattern (str "(?i).*" plain-word ".*"))
                        (decode crypotext w1 w2))]
     [w1 w2 (decode crypotext w1 w2)]))
 
