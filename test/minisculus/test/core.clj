@@ -10,6 +10,3 @@
 				   "n" "o" "p" "q" "r" "s"  "t" "u" "v" "w" "x" "y" "z"
 				   "." "," "?" "!" "'" "\"" " " ]
 				 keyboard)))
-
-(describe "docstring"
-  (it (= nil (doc keyboard))))
